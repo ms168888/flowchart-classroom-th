@@ -86,3 +86,4 @@ window.addEventListener('pointerup',e=>{
 window.addEventListener('pointercancel',()=>{dragStart=null;paintLinks()});
 window.addEventListener('resize',()=>{if(mode==='link')paintLinks()});
 resetLink();
+render();

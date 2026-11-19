@@ -26,7 +26,7 @@ const shuffle=(source)=>{
 };
 const indices=Array.from(symbols.keys());
 const mark=(i)=>'<span aria-hidden="true" class="mark '+symbols[i][0]+'" style="--ink:'+symbols[i][1]+'">'+(i===1?'↓ ↑':'')+'</span>';
-let mode='match',left,right,paired,sel,answer,tries,round,order,judged,feedback,checks; const ended={match:false,order:false};
+let mode='link',left,right,paired,sel,answer,tries,round,order,judged,feedback,checks; const ended={match:false,order:false};
 function resetMatch(){
  ended.match=false;
  left=shuffle(indices); right=shuffle(indices); paired=new Set(); sel=null; answer=null; tries=0;
@@ -125,4 +125,4 @@ game.addEventListener('click',e=>{
  else if(focus)game.querySelector(focus)?.focus();
  if(wasEnded&&!ended[mode]) game.querySelector('h2')?.focus();
 });
-round=0;resetMatch();resetOrder();render();
+round=0;resetMatch();resetOrder();
