@@ -1,3 +1,4 @@
+const linkThaiNames=['เริ่มต้นหรือสิ้นสุด','เส้นแสดงทิศทาง','การประมวลผล','รับข้อมูลทางแป้นพิมพ์','การตัดสินใจ','จุดเชื่อมต่อ','แสดงผลบนหน้าจอ','รับเข้าหรือส่งออกทั่วไป'];
 const chooseLink=document.querySelector('#chooseLink');
 let linkLeft,linkRight,linkPairs,linkSelected,linkTries,linkEnded,linkFeedback,dragStart;
 function resetLink(){
@@ -11,9 +12,9 @@ function drawLink(){
  }
  const cards=(ids,side)=>ids.map((id,i)=>{
   const done=linkPairs.has(id);
-  return '<button class="card link-card '+(side==='left'?'symbol ':'')+(done?'done':'')+'" data-link="card" data-side="'+side+'" data-id="'+id+'" aria-pressed="'+(linkSelected?.side===side&&linkSelected.id===id)+'" '+(done?'disabled ':'')+(side==='left'?'aria-label="สัญลักษณ์ตัวเลือก '+(i+1)+'"':'')+'>'+(side==='left'?mark(id):symbols[id][2])+'</button>';
+  return '<button class="card link-card '+(side==='left'?'symbol ':'')+(done?'done':'')+'" data-link="card" data-side="'+side+'" data-id="'+id+'" aria-pressed="'+(linkSelected?.side===side&&linkSelected.id===id)+'" '+(done?'disabled ':'')+(side==='left'?'aria-label="สัญลักษณ์ตัวเลือก '+(i+1)+'"':'')+'>'+(side==='left'?mark(id):'<span class="link-name-th">'+linkThaiNames[id]+'</span><span class="link-name-en" lang="en">'+symbols[id][2]+'</span>')+'</button>';
  }).join('');
- game.innerHTML='<div class="bar"><h2>โยงเส้นหาคู่</h2><span class="score">'+linkPairs.size+' / 8 คู่</span></div><p>เชื่อมสัญลักษณ์ทางซ้ายกับชื่อทางขวา</p><div class="link-board"><canvas aria-hidden="true"></canvas><div class="col">'+cards(linkLeft,'left')+'</div><div class="col">'+cards(linkRight,'right')+'</div></div><p class="feedback" role="status">'+linkFeedback+'</p><div class="bar"><button data-link="replay">เล่นใหม่</button><button class="primary" data-link="finish">จบเกมและดูคะแนน</button></div>';
+ game.innerHTML='<div class="bar"><h2>โยงเส้นหาคู่</h2><span class="score">'+linkPairs.size+' / 8 คู่</span></div><p>เชื่อมสัญลักษณ์ทางซ้ายกับชื่อภาษาไทยและภาษาอังกฤษทางขวา</p><div class="link-board"><canvas aria-hidden="true"></canvas><div class="col">'+cards(linkLeft,'left')+'</div><div class="col">'+cards(linkRight,'right')+'</div></div><p class="feedback" role="status">'+linkFeedback+'</p><div class="bar"><button data-link="replay">เล่นใหม่</button><button class="primary" data-link="finish">จบเกมและดูคะแนน</button></div>';
  paintLinks();
 }
 function paintLinks(pointer){
@@ -43,7 +44,7 @@ function linkChoice(side,id){
   linkFeedback=linkSelected?'เลือกอีกฝั่งเพื่อเชื่อมเส้น':'เลือกสัญลักษณ์หรือชื่อเพื่อเริ่ม';
  }else{
   linkTries++;
-  if(linkSelected.id===id){linkPairs.add(id);linkFeedback='ถูกต้อง! '+symbols[id][2];linkEnded=linkPairs.size===symbols.length}
+  if(linkSelected.id===id){linkPairs.add(id);linkFeedback='ถูกต้อง! '+linkThaiNames[id]+' · '+symbols[id][2];linkEnded=linkPairs.size===symbols.length}
   else linkFeedback='คู่นี้ยังไม่ตรงกัน ลองใหม่ได้เลย';
   linkSelected=null;
  }
