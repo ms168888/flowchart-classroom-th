@@ -69,7 +69,8 @@ function drawSummary(){
 function render(){
  chooseMatch.setAttribute('aria-pressed',mode==='match');
  chooseOrder.setAttribute('aria-pressed',mode==='order');
- if(ended[mode]) drawSummary(); else if(mode==='match') drawMatch(); else drawOrder();
+ document.querySelector('#chooseLink').setAttribute('aria-pressed',mode==='link');
+ if(mode==='link') drawLink(); else if(ended[mode]) drawSummary(); else if(mode==='match') drawMatch(); else drawOrder();
 }
 chooseMatch.onclick=()=>{mode='match';render()};
 chooseOrder.onclick=()=>{mode='order';render()};
